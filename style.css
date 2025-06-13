@@ -242,6 +242,11 @@ h1 {
     background-color: #e4b25e;
     border: 2px solid #8b4513;
     cursor: pointer;
+    -webkit-user-select: none; /* Safari, Chrome, and other WebKit-based browsers */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Standard syntax */
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* 移除点击时的透明灰色背景（主要针对iOS） */
     /* 通过JS设置canvas的width和height, 这里不再设置以避免拉伸 */
 }
 
