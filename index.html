@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业在线五子棋</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="username-modal">
+        <div id="username-box">
+            <h2>设置你的昵称</h2>
+            <form id="username-form">
+                <input type="text" id="username-input" placeholder="请输入昵称" required maxlength="10">
+                <button type="submit">进入游戏</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="rule-selection-modal" class="hidden">
+        <div id="rule-box">
+            <h2>设置房间规则</h2>
+            <form id="rule-form">
+                <div class="rule-option">
+                    <input type="checkbox" id="enable-kinte-rule">
+                    <label for="enable-kinte-rule">开启禁手规则 (黑棋禁手判负)</label>
+                </div>
+                <div class="rule-option">
+                    <input type="checkbox" id="enable-opening-rule">
+                    <label for="enable-opening-rule">开启专业开局 (三手交换, 五手两打)</label>
+                </div>
+                <button type="submit">创建房间</button>
+            </form>
+        </div>
+    </div>
+
+    <h1>专业在线五子棋 ⚔️</h1>
+
+    <div id="main-container">
+        <div id="game-container">
+            <div id="room-controls">
+                <input type="text" id="room-id-input" placeholder="输入房间号">
+                <button id="create-room-btn">创建房间</button>
+                <button id="join-room-btn">加入房间</button>
+            </div>
+
+            <div id="game-info" class="hidden">
+                <p>房间号: <strong id="room-id-display"></strong></p>
+                <div id="players-display">
+                    <span id="player-one-info">⚫️ 虚位以待...</span>
+                    <span>vs</span>
+                    <span id="player-two-info">⚪️ 虚位以待...</span>
+                </div>
+                <p id="game-status">请选择你的角色...</p>
+                
+                <div id="game-notification-bar" class="hidden"></div>
+
+                <div id="spectator-info">
+                    <p>观战席: <span id="spectator-list">无</span></p>
+                </div>
+            </div>
+
+            <div id="role-selection" class="hidden">
+                <h4>请选择你的阵营</h4>
+                <button id="choose-black-btn">选择黑棋</button>
+                <button id="choose-white-btn">选择白棋</button>
+                <button id="choose-spectator-btn">仅观战</button>
+            </div>
+
+            <div id="swap3-modal" class="hidden">
+                <p>对方已下第三手，您是否要交换执黑？</p>
+                <button id="swap3-yes-btn">是，交换执黑</button>
+                <button id="swap3-no-btn">否，继续执白</button>
+            </div>
+
+            <canvas id="gomoku-board" width="600" height="600" class="hidden"></canvas>
+        </div>
+
+        <div id="chat-container" class="hidden">
+            <h3>聊天室</h3>
+            <div id="chat-messages">
+                </div>
+            <form id="chat-form">
+                <input type="text" id="chat-input" placeholder="输入消息..." autocomplete="off">
+                <button type="submit">发送</button>
+            </form>
+            
+            <div id="action-controls">
+                <button id="retract-request-btn" class="hidden">请求悔棋</button>
+                <button id="report-kinte-btn" class="hidden">检举禁手</button>
+                <button id="confirm-kinte-report-btn" class="hidden">确认检举</button>
+                <button id="cancel-kinte-report-btn" class="hidden">取消检举</button>
+                <button id="confirm-swap5-placements-btn" class="hidden">确认两打位置</button>
+                <button id="end-match-exit-btn" class="hidden">对弈结束</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,514 @@
+/* === 基础样式 (已应用90%缩放) === */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 18px; /* 20px * 0.9 */
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #4a4a4a;
+    text-align: center;
+    font-size: 2.8rem; /* 调整标题大小以适应缩放 */
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* === 用户名与规则选择模态框 (已应用90%缩放) === */
+#username-modal, #rule-selection-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#username-box, #rule-box {
+    background: white;
+    padding: 27px 36px; /* 30px 40px * 0.9 */
+    border-radius: 9px; /* 10px * 0.9 */
+    text-align: center;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 360px; /* 400px * 0.9 */
+}
+
+#username-box h2, #rule-box h2 {
+    margin-top: 0;
+    margin-bottom: 18px; /* 20px * 0.9 */
+}
+
+#username-form input {
+    width: 100%;
+    padding: 9px; /* 10px * 0.9 */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 14px; /* 15px * 0.9 */
+    box-sizing: border-box;
+}
+
+#username-form button, #rule-form button {
+    width: 100%;
+    padding: 9px 14px; /* 10px 15px * 0.9 */
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px; /* 16px * 0.9 */
+    transition: background-color 0.3s;
+}
+#username-form button:hover, #rule-form button:hover {
+    background-color: #218838;
+}
+
+.rule-option {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 14px;
+    font-size: 0.9em; /* 1em * 0.9 */
+    text-align: left;
+    cursor: pointer;
+}
+
+.rule-option input[type="checkbox"] {
+    margin-right: 9px;
+    width: 16px; /* 18px * 0.9 */
+    height: 16px;
+    cursor: pointer;
+}
+
+/* === 主布局 (已应用90%缩放) === */
+#main-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 18px; /* 20px * 0.9 */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    padding: 18px; /* 20px * 0.9 */
+    border-radius: 9px;
+    box-shadow: 0 4px 11px rgba(0, 0, 0, 0.1);
+    width: 580px;  /* (600*0.9) + 18*2 = 540 + 40 -> ~580px */
+    box-sizing: border-box;
+}
+
+/* === 游戏内UI元素 (已应用90%缩放) === */
+#room-controls {
+    margin-bottom: 18px;
+    text-align: center;
+}
+#room-controls input {
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 9px;
+}
+#room-controls button {
+    padding: 9px 14px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#room-controls button:hover {
+    background-color: #0056b3;
+}
+
+#game-info {
+    width: 100%;
+}
+#game-info p {
+    margin: 5px 0;
+    text-align: center;
+}
+
+#players-display {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    font-weight: bold;
+    font-size: 1em; /* 1.1em * 0.9 */
+    padding: 9px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin: 9px 0;
+}
+
+#spectator-info {
+    font-size: 0.8em; /* 0.9em * 0.9 */
+    color: #666;
+    margin-top: 14px;
+    width: 100%;
+    text-align: center;
+}
+#spectator-list {
+    font-weight: normal;
+    color: #333;
+}
+
+#role-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 18px;
+    margin: 18px 0;
+    border: 1px dashed #ccc;
+    border-radius: 7px;
+    width: 80%;
+}
+#role-selection h4 {
+    margin: 0 0 9px 0;
+    color: #333;
+}
+#role-selection button {
+    padding: 11px 22px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    width: 180px; /* 200px * 0.9 */
+    transition: all 0.3s;
+}
+#choose-black-btn { background-color: #343a40; }
+#choose-white-btn { background-color: #6c757d; }
+#choose-spectator-btn { background-color: #007bff; }
+#role-selection button:hover:not(:disabled) {
+    opacity: 0.8;
+}
+#role-selection button:disabled {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+#game-notification-bar, #swap3-modal {
+    padding: 14px;
+    margin: 14px auto;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    border-radius: 7px;
+    text-align: center;
+    width: 90%;
+    box-sizing: border-box;
+}
+#game-notification-bar p, #swap3-modal p {
+    margin: 0 0 9px 0;
+    font-weight: bold;
+}
+#game-notification-bar button, #swap3-modal button {
+    padding: 7px 14px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8em;
+}
+#retract-approve-btn { background-color: #28a745; }
+#retract-decline-btn { background-color: #dc3545; }
+#kinte-confirm-btn { background-color: #dc3545; }
+#kinte-deny-btn { background-color: #007bff; }
+#swap3-yes-btn { background-color: #28a745; }
+#swap3-no-btn { background-color: #6c757d; }
+
+
+#gomoku-board {
+    background-color: #e4b25e;
+    border: 2px solid #8b4513;
+    cursor: pointer;
+    /* 通过JS设置canvas的width和height, 这里不再设置以避免拉伸 */
+}
+
+/* === 聊天窗口样式 (已修复滚动条并应用90%缩放) === */
+#chat-container {
+    width: 270px; /* 300px * 0.9 */
+    height: 580px; /* 与游戏容器高度对齐 */
+    background: white;
+    border-radius: 9px;
+    box-shadow: 0 4px 11px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+    box-sizing: border-box;
+}
+
+#chat-container h3 {
+    text-align: center;
+    margin-top: 0;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #eee;
+}
+
+#chat-messages {
+    flex-grow: 1;
+    overflow-y: auto; /* 关键修复：当内容溢出时显示滚动条 */
+    margin-bottom: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    padding-right: 5px;
+}
+
+.chat-message {
+    padding: 7px 11px;
+    border-radius: 14px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+.chat-message .message-sender {
+    font-size: 0.7em;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #555;
+}
+
+.my-message {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 3px;
+}
+.my-message .message-sender {
+    color: #e0e0e0;
+}
+
+.opponent-message {
+    background-color: #e9e9eb;
+    color: #333;
+    align-self: flex-start;
+    border-bottom-left-radius: 3px;
+}
+
+.system-message {
+    font-style: italic;
+    font-size: 0.8em;
+    color: #6c757d;
+    text-align: center;
+    background-color: #f8f9fa;
+    align-self: center;
+    width: 90%;
+    padding: 5px 9px;
+    border-radius: 5px;
+}
+.system-message .message-sender {
+    display: none;
+}
+
+#chat-form {
+    display: flex;
+}
+#chat-input {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    border-radius: 18px 0 0 18px;
+    padding: 9px 14px;
+    outline: none;
+}
+#chat-input:focus {
+    border-color: #007bff;
+}
+#chat-form button {
+    padding: 9px 14px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 0 18px 18px 0;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+/* === 游戏操作按钮区 (已应用90%缩放) === */
+#action-controls {
+    margin-top: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+}
+
+#action-controls button {
+    padding: 9px;
+    font-size: 0.9em;
+    border: 1px solid #6c757d;
+    background-color: transparent;
+    color: #6c757d;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#action-controls button:hover:not(:disabled) {
+    background-color: #5a6268;
+    color: white;
+    border-color: #5a6268;
+}
+
+#action-controls button:disabled {
+    border-color: #ced4da;
+    color: #ced4da;
+    background-color: #f8f9fa;
+    cursor: not-allowed;
+}
+
+#confirm-kinte-report-btn, #confirm-swap5-placements-btn {
+    grid-column: span 2;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: white;
+}
+#confirm-kinte-report-btn:hover:not(:disabled), #confirm-swap5-placements-btn:hover:not(:disabled) {
+    background-color: #138496;
+    border-color: #138496;
+}
+
+#cancel-kinte-report-btn {
+    grid-column: span 2;
+}
+
+/* === 新增：游戏结束控制区样式 === */
+#end-game-controls {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+#end-game-controls button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#end-match-exit-btn {
+    grid-column: span 2; /* 让按钮横跨两列，占据整个宽度 */
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: white;
+    font-weight: bold;
+}
+#end-match-exit-btn:hover:not(:disabled) {
+    background-color: #138496;
+    border-color: #138496;
+}
+
+/* =================================================================
+   新增：移动端响应式适配
+================================================================= */
+/* =================================================================
+   新增：移动端响应式适配 (已修正语法)
+================================================================= */
+@media (max-width: 768px) {
+
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    /* 1. 主布局从左右变为上下 */
+    #main-container {
+        flex-direction: column;
+        width: 100%;
+        gap: 15px;
+    }
+
+    /* 2. 游戏容器和聊天容器宽度占满 */
+    #game-container, #chat-container {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* 3. 关键：让棋盘按比例缩放以适应屏幕宽度 */
+    #gomoku-board {
+        width: 100%;
+        height: auto; /* 高度自动，保持棋盘比例 */
+    }
+
+    /* 4. 聊天容器高度调整 */
+    #chat-container {
+        height: 60vh; /* 占据60%的视口高度，可以自行调整 */
+        min-height: 400px;
+    }
+
+    /* 5. 调整玩家信息和状态栏的字体大小 */
+    #players-display {
+        font-size: 0.9em;
+    }
+    #game-status {
+        font-size: 1em;
+    }
+
+    /* 6. 调整角色选择区域 */
+    #role-selection {
+        width: 90%;
+        padding: 15px;
+        gap: 10px;
+    }
+    #role-selection button {
+        width: 100%;
+        padding: 10px 15px;
+        font-size: 1em;
+    }
+
+    /* 7. 调整游戏内通知栏 */
+    #game-notification-bar p, #swap3-modal p {
+        font-size: 0.9em;
+    }
+     #game-notification-bar button, #swap3-modal button {
+        padding: 8px 12px;
+    }
+
+    /* 8. 调整聊天输入框和按钮 */
+    #chat-input {
+        padding: 8px 12px;
+    }
+    #chat-form button {
+        padding: 8px 12px;
+    }
+
+    /* 9. 调整下方操作按钮 */
+    #action-controls button {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    /* 10. 调整模态框 */
+    #username-box, #rule-box {
+        padding: 20px;
+        max-width: 90vw;
+    }
+}
