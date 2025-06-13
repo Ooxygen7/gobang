@@ -281,9 +281,28 @@ async function handleRoleSelection(role) {
 }
 
 async function handleCanvasClick(e) {
+    // 1. 获取 canvas 元素相对于视口的位置和其当前的显示尺寸
     const rect = canvas.getBoundingClientRect();
-    const x = Math.round((e.clientX - rect.left - CELL_SIZE / 2) / CELL_SIZE);
-    const y = Math.round((e.clientY - rect.top - CELL_SIZE / 2) / CELL_SIZE);
+
+    // 2. 计算点击位置相对于 canvas 元素左上角的坐标 (在 CSS 显示尺寸下)
+    const clickX_on_element = e.clientX - rect.left;
+    const clickY_on_element = e.clientY - rect.top;
+
+    // 3. 计算 canvas 的 CSS 显示尺寸与其内部绘图尺寸之间的真实比例
+    //    这是解决 PC 和移动端因缩放导致偏移问题的关键
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+
+    // 4. 将点击坐标从 "CSS 显示坐标系" 转换到 "canvas 内部绘图坐标系"
+    const canvasX = clickX_on_element * scaleX;
+    const canvasY = clickY_on_element * scaleY;
+
+    // 5. 从转换后的 canvas 内部坐标计算出棋盘的格子索引 (x, y)
+    //    使用 Math.floor 可以准确找到点击所在的单元格
+    const x = Math.floor(canvasX / CELL_SIZE);
+    const y = Math.floor(canvasY / CELL_SIZE);
+
+    // 确保点击在棋盘有效范围内，其余逻辑保持完全不变
     if (x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) return;
 
     const roomRef = db.collection('rooms').doc(currentRoomId);
@@ -380,6 +399,8 @@ async function handleCanvasClick(e) {
             break;
     }
 }
+
+// ... (函数的其余部分)
 
 async function requestRetract() {
     if (!currentRoomId || !currentUser) return;
