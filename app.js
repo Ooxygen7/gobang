@@ -284,27 +284,23 @@ async function handleCanvasClick(e) {
     // 1. 获取 canvas 元素相对于视口的位置和其当前的显示尺寸
     const rect = canvas.getBoundingClientRect();
 
-    // 2. 计算点击位置相对于 canvas 元素左上角的坐标 (在 CSS 显示尺寸下)
-    const clickX_on_element = e.clientX - rect.left;
-    const clickY_on_element = e.clientY - rect.top;
-
-    // 3. 计算 canvas 的 CSS 显示尺寸与其内部绘图尺寸之间的真实比例
+    // 2. 计算 canvas 的 CSS 显示尺寸与其内部绘图尺寸之间的真实比例
     //    这是解决 PC 和移动端因缩放导致偏移问题的关键
     const scaleX = canvas.width / rect.width;
     const scaleY = canvas.height / rect.height;
 
-    // 4. 将点击坐标从 "CSS 显示坐标系" 转换到 "canvas 内部绘图坐标系"
-    const canvasX = clickX_on_element * scaleX;
-    const canvasY = clickY_on_element * scaleY;
+    // 3. 将屏幕点击坐标从 "CSS 显示坐标系" 转换到 "canvas 内部绘图坐标系"
+    const canvasX = (e.clientX - rect.left) * scaleX;
+    const canvasY = (e.clientY - rect.top) * scaleY;
 
-    // 5. 从转换后的 canvas 内部坐标计算出棋盘的格子索引 (x, y)
-    //    使用 Math.floor 可以准确找到点击所在的单元格
+    // 4. 从转换后的 canvas 内部坐标计算出棋盘的格子索引 (x, y)
     const x = Math.floor(canvasX / CELL_SIZE);
     const y = Math.floor(canvasY / CELL_SIZE);
 
-    // 确保点击在棋盘有效范围内，其余逻辑保持完全不变
+    // 确保点击在棋盘有效范围内
     if (x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) return;
 
+    // --- 后续所有游戏状态判断和落子逻辑保持完全不变 ---
     const roomRef = db.collection('rooms').doc(currentRoomId);
     switch (gameState) {
         case 'swap5_place':
