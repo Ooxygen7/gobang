@@ -36,6 +36,7 @@ h1 {
 }
 
 #username-box, #rule-box {
+    position: relative; 
     background: white;
     padding: 27px 36px; /* 30px 40px * 0.9 */
     border-radius: 9px; /* 10px * 0.9 */
@@ -116,13 +117,20 @@ h1 {
 /* === 游戏内UI元素 (已应用90%缩放) === */
 #room-controls {
     margin-bottom: 18px;
-    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* 让内部元素垂直排列 */
+    align-items: center;    /* 水平居中 */
+    gap: 12px;              /* 元素之间的间距，像糖葫芦的果子间距 */
 }
 #room-controls input {
     padding: 9px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 9px;
+    /* margin-right: 9px;  <-- 不再需要右边距 */
+    width: 250px;           /* 给一个固定的宽度，看起来更整齐 */
+    box-sizing: border-box;
+    text-align: center;     /* 让输入框内的提示文字也居中 */
 }
 #room-controls button {
     padding: 9px 14px;
@@ -132,10 +140,68 @@ h1 {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 250px;           /* 和输入框等宽 */
+    box-sizing: border-box;
 }
+
 #room-controls button:hover {
     background-color: #0056b3;
 }
+
+
+/* === 新增的公告栏样式 START === */
+#announcement-board {
+    width: 250px; /* 和上面的控件保持一样的宽度 */
+    margin-top: 10px; /* 和上面的控件拉开一点距离 */
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 12px;
+    background-color: #f8f9fa;
+    box-sizing: border-box;
+}
+
+#announcement-board h4 {
+    margin: 0 0 10px 0;
+    padding-bottom: 8px;
+    text-align: center;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+}
+
+.announcement-content {
+    max-height: 150px; /* 关键：设置一个最大高度，超过这个高度就会出现滚动条 */
+    overflow-y: auto;  /* 关键：当内容溢出时，自动显示垂直滚动条 */
+    padding-right: 10px; /* 给滚动条留出一点空间，避免遮挡文字 */
+}
+
+.announcement-content p {
+    font-size: 0.8em;
+    margin: 0 0 8px 0;
+    line-height: 1.5;
+    color: #555;
+}
+.announcement-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* 美化滚动条 (可选) */
+.announcement-content::-webkit-scrollbar {
+    width: 6px;
+}
+.announcement-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+.announcement-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+.announcement-content::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}
+/* === 新增的公告栏样式 END === */
+
 
 #game-info {
     width: 100%;
@@ -516,4 +582,21 @@ h1 {
         padding: 20px;
         max-width: 90vw;
     }
+}
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    border: none;
+    font-size: 28px;
+    font-weight: bold;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #333;
 }

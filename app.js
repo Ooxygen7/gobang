@@ -21,6 +21,7 @@ const auth = firebase.auth();
 // =================================================================
 //  DOM 元素获取
 // =================================================================
+const mainTitle = document.getElementById('main-title'); // **** 修正之处：获取标题元素 ****
 const canvas = document.getElementById('gomoku-board');
 canvas.width = 540;
 canvas.height = 540;
@@ -37,6 +38,7 @@ const usernameModal = document.getElementById('username-modal');
 const usernameForm = document.getElementById('username-form');
 const usernameInput = document.getElementById('username-input');
 const ruleSelectionModal = document.getElementById('rule-selection-modal');
+const closeRuleModalBtn = document.getElementById('close-rule-modal-btn');
 const ruleForm = document.getElementById('rule-form');
 const enableKinteRuleCheckbox = document.getElementById('enable-kinte-rule');
 const enableOpeningRuleCheckbox = document.getElementById('enable-opening-rule');
@@ -50,7 +52,6 @@ const roleSelectionDiv = document.getElementById('role-selection');
 const chooseBlackBtn = document.getElementById('choose-black-btn');
 const chooseWhiteBtn = document.getElementById('choose-white-btn');
 const chooseSpectatorBtn = document.getElementById('choose-spectator-btn');
-const spectatorList = document.getElementById('spectator-list');
 const gameNotificationBar = document.getElementById('game-notification-bar');
 const swap3Modal = document.getElementById('swap3-modal');
 const actionControls = document.getElementById('action-controls');
@@ -266,7 +267,7 @@ async function handleRoleSelection(role) {
                         updateData.board = newBoard;
                         updateData.moveHistory = [firstMove];
                         updateData.turn = 2;
-                        systemMessage = '专业开局：黑方已自动落子天元，轮到白方。';
+                        systemMessage = '黑方已自动落子天元，轮到白方。';
                     }
                     updateData.gameState = newGameState;
                     await sendSystemMessage(systemMessage);
@@ -649,6 +650,7 @@ async function joinRoom() {
 }
 
 function enterGame(roomId) {
+    mainTitle.classList.add('hidden'); // **** 修正之处：隐藏主标题 ****
     roomControls.classList.add('hidden');
     gameInfo.classList.remove('hidden');
     chatContainer.classList.remove('hidden');
@@ -694,7 +696,6 @@ function enterGame(roomId) {
         });
         playerOneInfo.textContent = `⚫️ ${blackPlayerName}`;
         playerTwoInfo.textContent = `⚪️ ${whitePlayerName}`;
-        spectatorList.textContent = spectators.length > 0 ? spectators.join(', ') : '无';
         
         roleSelectionDiv.classList.add('hidden');
         gomokuBoard.classList.add('hidden');
@@ -733,7 +734,7 @@ function enterGame(roomId) {
                 gomokuBoard.classList.remove('hidden');
                 if (userRole === 'black') {
                     confirmSwap5PlacementsBtn.classList.remove('hidden');
-                    gameStatus.textContent = '请在棋盘上选择两个点作为五手两打。';
+                    gameStatus.textContent = '请选择两个落点作为五手两打，选择完毕后点击聊天窗口下方的确认。';
                 } else {
                     gameStatus.textContent = `等待 ${blackPlayerName} 提出两个第五手落子点...`;
                 }
@@ -802,7 +803,7 @@ function enterGame(roomId) {
                 } else if (roomData.winner) {
                     const winnerRole = roomData.winner === 1 ? '黑方' : '白方';
                     const winnerName = roomData.winner === 1 ? blackPlayerName : whitePlayerName;
-                    gameStatus.textContent = `游戏结束! ${winnerRole} (${winnerName}) 胜利! 🎉`;
+                    gameStatus.textContent = `游戏结束! ${winnerRole} (${winnerName}) 胜利! 🎉 -已自动断开链接，请点击聊天栏下方对弈结束按钮`;
                     const endMatchExitBtn = document.getElementById('end-match-exit-btn');
                     if(endMatchExitBtn) {
                         endMatchExitBtn.classList.remove('hidden');
@@ -844,6 +845,10 @@ window.addEventListener('load', () => {
         username = savedUsername;
         usernameModal.classList.add('hidden'); 
     }
+
+    closeRuleModalBtn.addEventListener('click', () => {
+        ruleSelectionModal.classList.add('hidden');
+    });
 
     usernameForm.addEventListener('submit', (e) => {
         e.preventDefault();
